@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "action": "reading",
+    "finished": 0
+  },
+  {
+    "id": 2,
+    "action": "watching",
+    "finished": 1
+  },
+  {
+    "id": 3,
+    "action": "fishing",
+    "finished": 0
+  }
+]

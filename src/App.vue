@@ -17,31 +17,56 @@
   import ComponentA from './components/ComponentA';
   import {myEventBus} from './event-bus';
 
+
   export default {
     data() {
       return {
         msg: 'this is a todo list.',
         newTodo: '',
         sonWords: '',
-        todos: Store.fetch()
+        todos: []
       }
     },
     components: {ComponentA},
-    created: function () {
+    mounted() {
       // myEventBus.$on('child-said', function (msg) {
       //   console.log("msg:"+msg);
       //   this.sonWords = msg;
       // })
+
+      this.$nextTick(function () {
+        this.getTodos();
+      })
     }
     ,
     methods: {
       addTodo: function () {
-        this.todos.push({action: this.newTodo, finished: false})
-        this.newTodo = '';
+        var _this = this;
+        this.$http.post("http://127.0.0.1:8060/api/todo", {
+          action: _this.newTodo,
+          finished: 0
+
+        }).then(function (response) {
+          _this.todos.push({action: _this.newTodo, finished: 0})
+          _this.newTodo = '';
+        }).catch(function (error) {
+          console.log(error);
+        })
+
+
       },
-      sonSaid:function (sonMsg) {
-        console.log("sonMsg:"+sonMsg);
+      sonSaid: function (sonMsg) {
+        console.log("sonMsg:" + sonMsg);
         this.sonWords = sonMsg;
+      }
+      , getTodos: function () {
+        var _this = this;
+        this.$http.get("http://127.0.0.1:8060/api/todos").then(function (response) {
+          _this.todos = response.data;
+          console.log(_this.todos);
+        }).catch(function (error) {
+          console.log(error);
+        });
       }
     }
     ,
