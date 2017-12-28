@@ -42,7 +42,7 @@
     methods: {
       addTodo: function () {
         var _this = this;
-        this.$http.post("http://127.0.0.1:8060/api/todo", {
+        this.$http.post("http://47.95.243.144/spring-boot/api/todo", {
           action: _this.newTodo,
           finished: 0
 
@@ -61,7 +61,7 @@
       }
       , getTodos: function () {
         var _this = this;
-        this.$http.get("http://127.0.0.1:8060/api/todos").then(function (response) {
+        this.$http.get("http://47.95.243.144/spring-boot/api/todos").then(function (response) {
           _this.todos = response.data;
           console.log(_this.todos);
         }).catch(function (error) {
